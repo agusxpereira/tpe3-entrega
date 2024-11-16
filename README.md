@@ -17,9 +17,11 @@ Tabla de ruteo:
 
 A este método le podemos agregar los siguientes queryParams:
 
-- `ordenarPor`: Se puede ordenar por cualquie campo de libros.
+- `ordenarPor`: Se puede ordenar por cualquier campo de libros.
 - `ofertas` : Para filtrar los libros que estén en oferta.
 - `orden`: ascendente o descentiente
+
+> y tambien está paginacion pero eso lo agrega más abajo
 
 Ejemplo: `(GET) api/libros?ordenarPor=precio&orden=descendente`
 
