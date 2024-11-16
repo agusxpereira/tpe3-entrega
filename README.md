@@ -97,18 +97,8 @@ Este es el servicio para cambiar el campo `en_oferta`.
 > Si ya está en oferta lo saca.
 
 Ejemplo: `(PUT) api/libros/:id/en_oferta`
-```JSON
-{
-    "id_libro": 25,
-    "titulo": "Libro Editado",
-    "autor": "Este valor va a ser editado editado",
-    "paginas": 1,
-    "cover": "",
-    "id_genero": 1,
-    "en_oferta": 0,
-    "precio": 1000
-  }
-```
+
+> No se le envian datos
 
 ### Paginacion:
 
