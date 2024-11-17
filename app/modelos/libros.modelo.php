@@ -2,22 +2,6 @@
 require_once 'Modelo.base.php';
 class LibrosModelo extends ModeloBase{
 
-    /*Funcion de ayuda*/
-    public function obtenerGeneros(){
-       $query =  $this->db->prepare("SELECT nombre FROM generos WHERE 1");
-       $query->execute();
-       $listaGeneros = $query->fetchAll(PDO::FETCH_OBJ);
-       
-       return $listaGeneros;
-    }
-    public function obtenerIdGenero($nombre){
-       $query =  $this->db->prepare("SELECT id FROM generos WHERE nombre = ?");
-       $query->execute([$nombre]);
-       $id = $query->fetchAll(PDO::FETCH_COLUMN);
-       
-       return $id[0];
-    
-    }
 
     public function obtenerLibros($filtrarOferta = false, $ordenarPor = false, $orden = false, $pagina = false, $limite = false){
         $sql = "SELECT * FROM libros";
@@ -41,6 +25,9 @@ class LibrosModelo extends ModeloBase{
                     break;
                 case 'autor':
                     $sql.=" ORDER BY autor";
+                    break;
+                case 'id':
+                    $sql.=" ORDER BY id_libro";
                     break;
             }
         }
@@ -160,4 +147,22 @@ class LibrosModelo extends ModeloBase{
 
         return $this->obtenerLibroPorId($id);
     }
+
+
+    /*Funcion de ayuda para el frontend*/
+    public function obtenerGeneros(){
+        $query =  $this->db->prepare("SELECT nombre FROM generos WHERE 1");
+        $query->execute();
+        $listaGeneros = $query->fetchAll(PDO::FETCH_OBJ);
+        
+        return $listaGeneros;
+     }
+     public function obtenerIdGenero($nombre){
+        $query =  $this->db->prepare("SELECT id FROM generos WHERE nombre = ?");
+        $query->execute([$nombre]);
+        $id = $query->fetchAll(PDO::FETCH_COLUMN);
+        
+        return $id[0];
+     
+     }
 }

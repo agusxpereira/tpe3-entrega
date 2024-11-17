@@ -169,6 +169,8 @@ class LibroApiController{
         return $this->vista->response($libroModificado, 201);
     }
 
+
+//Esta funcion la agregue nada más para probar en el frontend y que no se rompa
     public function obtenerGeneros($req, $res){
         $listaGeneros = $this->modelo->obtenerGeneros();
         return $this->vista->response($listaGeneros);

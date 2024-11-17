@@ -24,7 +24,7 @@ Tabla de ruteo:
 
 A este método le podemos agregar los siguientes queryParams:
 
-- `ordenarPor`: Se puede ordenar por cualquier campo de libros.
+- `ordenarPor`: Se puede ordenar por cualquier campo de libros (menos por cover que es un campo opcional).
 - `ofertas` : Para filtrar los libros que estén en oferta.
 - `orden`: ascendente o descentiente
 
