@@ -85,7 +85,7 @@ class LibroApiController{
     }
 
     public function agregarLibro($req, $res){
-       
+       var_dump($req->body);
         //validamos los datos
         if(empty($req->body->titulo) || empty($req->body->id_genero) || empty($req->body->precio)){
             

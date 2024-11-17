@@ -13,8 +13,11 @@ CREATE TABLE IF NOT EXISTS `generos` (
   `id` int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
   `nombre` varchar(150) NOT NULL UNIQUE,
   `descripcion` varchar(255) NOT NULL,
-  `ruta_imagen` varchar(255)
+  `ruta_imagen` varchar(255),
+  `activo` BOOLEAN NOT NULL DEFAULT TRUE,
+  `fecha_actualizacion` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
+
 
 
 INSERT INTO `generos` (nombre, descripcion) VALUES 
