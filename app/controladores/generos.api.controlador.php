@@ -19,7 +19,6 @@ class GenerosApiController{
 
     public function obtenerGeneros($req, $res){
       
-        var_dump($req);
         $activo = null;
         $pagina = false;
         $limite = 10;
@@ -35,8 +34,6 @@ class GenerosApiController{
         if(isset($req->query->ordenarPor) && ($req->query->ordenarPor != "")){
             //api/generos?ordenarPor="precio"
             $ordenarPor = $req->query->ordenarPor;
-            
-        var_dump($ordenarPor);
             
 
             if(isset($req->query->orden) &&($req->query->orden) != "" ){
@@ -106,7 +103,6 @@ class GenerosApiController{
     }
       
     public function agregarGenero($req, $res) {
-        var_dump($req->body);
         // Verificar que se recibió el nombre
         if (!isset($req->body->nombre) || empty($req->body->nombre)) {
             return $this->vista->response(['error' => 'Falta completar el nombre'], 400);
@@ -188,8 +184,6 @@ class GenerosApiController{
     
     public function activarGenero($req, $res) {
         $id = $req->params->id;
-
-        var_dump($id);
         // Verificar si el género existe
         $genero = $this->modelo->obtenerGeneroPorId(intval($id));
         if (!$genero) {

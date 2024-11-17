@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS `libros` (
   `cover` varchar(255) DEFAULT NULL,
   `id_genero` int(11) NOT NULL,
   `en_oferta` tinyint(1) NOT NULL DEFAULT 0,
-  `precio` double NOT NULL,
+  `precio` double NOT NULL
   
 );
 

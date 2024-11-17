@@ -42,6 +42,7 @@ class GenerosModelo extends ModeloBase{
                     break;
             }
         }
+
         
 
         if($orden && $ordenarPor != false){
@@ -59,7 +60,7 @@ class GenerosModelo extends ModeloBase{
                     break;
             }
         }
-        var_dump($sql);
+
         $consulta = $this->db->prepare($sql);
         $consulta->execute();
         $generos = $consulta->fetchAll(PDO::FETCH_OBJ);

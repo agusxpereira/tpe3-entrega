@@ -13,7 +13,6 @@ class EjercicioControlador{
     
     public function mostrarProductos(){
         $productos = $this->modelo->obtenerProducto();
-        var_dump($productos);
         return $this->vista->mostrarProductos($productos);
 
     }
