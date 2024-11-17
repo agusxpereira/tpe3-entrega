@@ -1,4 +1,3 @@
-## Libros
 
 Tabla de ruteo:
 
@@ -10,7 +9,15 @@ Tabla de ruteo:
 | libros/:id            | DELETE | LibroApiController  | borrarLibros   |
 | libros/:id            | PUT    | LibroApiController  | editarLibro    |
 | libros/:id/en_oferta  | PUT    | LibroApiController  | editarLibro    |
+|:----------------------|:------:|:-------------------:|:--------------:|
+| generos                | GET    | GenerosApiController  | obtenerGeneros  |
+| generos/:id            | GET    | GenerosApiController  | obtenerGenero   |
+| generos                | POST   | GenerosApiController  | agregarGenero   |
+| generos/:id            | DELETE | GenerosApiController  | borrarGenero    |
+| generos/:id            | PUT    | GenerosApiController  | editarGenero    |
+| generos/:id/           | PATCH  | GenerosApiController  | activarGenero   |
 
+## Libros
 ### GET libros
 
 > `| libros      | GET    | LibroApiController  | obtenerLibros  |`
@@ -145,4 +152,140 @@ if(isset($pagina) && $pagina!=false){
 > count($libros) = 13;
 > 
 > En este caso me pasaria de largo, por eso hago este control, porque ya sé que estoy en el elemento 10 y entonces solamente voy a hasta el final de los libros que tengo, en este caso 13.
+
+
+## Generos
+### GET Generos
+
+> `| generos      | GET    | GenerosApiController  | obtenerGeneros  |`
+
+Este endpoint permite obtener una lista de géneros, con opciones adicionales para filtrar y ordenar. Se pueden utilizar los siguientes **queryParams**:
+
+- **`ordenarPor`**: Permite ordenar por cualquier campo de la tabla `generos` (por ejemplo, `nombre`, `id`, etc.).
+- **`orden`**: Define el orden del listado, que puede ser `ascendente` o `descendente`.
+
+#### Ejemplo de llamada:
+```http
+GET api/generos?ordenarPor=nombre&orden=ascendente
+```
+
+#### Código:
+El código para implementar este comportamiento sería similar al siguiente, asegurando la validación de los campos para evitar inyecciones SQL:
+
+```php
+if ($ordenarPor) {
+            switch ($ordenarPor) {
+                case 'nombre':
+                    $sql .= " ORDER BY nombre";
+                    break;
+                case 'descripcion':
+                    $sql .= " ORDER BY descripcion";
+                    break;
+                case 'activo':
+                    $sql .= " ORDER BY activo";
+                    break;
+                case 'fecha_actualizacion':
+                    $sql .= " ORDER BY fecha_actualizacion";
+                    break;
+            }
+        }
+        if($orden && $ordenarPor != false){
+            switch ($orden) {
+                case 'ascendente':
+                    $sql .= " ASC";
+                    break;
+                
+                case 'descendente':
+                    $sql .= " DESC";
+                    break;
+                
+                default:
+                    # code...
+                    break;
+            }
+```
+
+### **GET generos/:id**
+
+> `| generos/:id  | GET    | GenerosApiController  | obtenerGenero   |`
+
+Permite obtener un género específico basado en su ID. Este servicio se utiliza principalmente para recuperar los detalles de un género.
+
+#### Ejemplo de llamada:
+```http
+GET api/generos/2
+```
+
+### **POST generos**
+
+Permite agregar un nuevo género. El cuerpo de la solicitud debe incluir los datos mínimos requeridos, como el nombre del género y la descripcion del genero. (Los demas campos se configuran automaticamente en activo y fecha de actualizacion toma la fecha actual)
+
+#### Ejemplo de carga:
+```json
+{
+  "nombre": "Ciencia Ficción",
+  "descripcion": "Un género dedicado a la ficción científica."
+}
+```
+
+#### Validaciones:
+- **`nombre`**: Campo obligatorio, único.
+- **`descripcion`**: Campo obligatorio.
+
+### **DELETE generos/:id**
+
+> `| generos/:id  | DELETE | GenerosApiController  | borrarGenero   |`
+
+Permite eliminar un género basado en su ID. Este servicio es útil para mantener la lista de géneros actualizada y libre de elementos obsoletos.
+
+#### Ejemplo de llamada:
+```http
+DELETE api/generos/3
+```
+
+### **PUT generos/:id**
+
+> `| generos/:id  | PUT    | GenerosApiController  | editarGenero   |`
+
+Permite editar un género existente, modificando sus campos según las necesidades.
+
+#### Ejemplo de datos:
+```json
+{
+  "nombre": "Fantástico",
+  "descripcion": "Un género centrado en lo fantástico.",
+t
+}
+```
+
+#### Validaciones:
+- **`nombre`**: Debe ser único si se edita.
+- **`activo`**: Solo acepta valores `true` o `false`.
+
+### **PATCH generos/:id**
+
+> `| generos/:id  | PATCH  | GenerosApiController  | activarGenero   |`
+
+Este servicio es específico para activar o desactivar un género. Solo requiere un ID en la URL.
+
+#### Ejemplo de llamada:
+```http
+PATCH api/generos/3
+```
+
+### **Paginación para Generos**
+
+La paginación en el endpoint de géneros sigue el mismo esquema que en libros:
+
+- **`pagina`**: Define el número de página a obtener.
+- **`limite`**: Especifica cuántos géneros por página se deben mostrar. Por defecto es `10`.
+Si la pagina o el limite son invalidos devuelve todo el conjunto de datos.
+#### Ejemplo de llamada:
+```http
+GET api/generos?pagina=2&limite=5
+```
+
+#### Implementación:
+El código para manejar la paginación sería idéntico al utilizado en `libros`, asegurándote de trabajar sobre la colección adecuada.
+
 
