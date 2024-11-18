@@ -15,7 +15,7 @@ Tabla de ruteo:
 | generos                | POST   | GenerosApiController  | agregarGenero   |
 | generos/:id            | DELETE | GenerosApiController  | borrarGenero    |
 | generos/:id            | PUT    | GenerosApiController  | editarGenero    |
-| generos/:id/           | PATCH  | GenerosApiController  | activarGenero   |
+| generos/:id            | PATCH  | GenerosApiController  | activarGenero   |
 
 ## Libros
 ### GET libros
